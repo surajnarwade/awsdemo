@@ -16,10 +16,10 @@ def index():
 def getzips():
     results = []
     try:
-        conn = psycopg2.connect(database=os.environ.get('POSTGRES_DB'), user=os.environ.get('POSTGRES_USER'),
-                                host=os.environ.get('POSTGRES_HOST'), password=os.environ.get('POSTGRES_PASSWORD'))
+        conn = psycopg2.connect(database=os.environ.get('DB_NAME'), user=os.environ.get('DB_USER'),
+                                host=os.environ.get('DB_HOST'), password=os.environ.get('DB_PASSWORD'))
     except:
-        print("couldn't make connection" + os.environ.get('POSTGRES_HOST'))
+        print("couldn't make connection" + os.environ.get('DB_HOST'))
 
     cur = conn.cursor()
     cur.execute("""select zipcode, count, ST_AsText(the_geom) from zipcodes""")
@@ -42,10 +42,10 @@ def getzips():
 def getairports():
     results = []
     try:
-        conn = psycopg2.connect(database=os.environ.get('POSTGRES_DB'), user=os.environ.get('POSTGRES_USER'),
-                                host=os.environ.get('POSTGRES_HOST'), password=os.environ.get('POSTGRES_PASSWORD'))
+        conn = psycopg2.connect(database=os.environ.get('DB_NAME'), user=os.environ.get('DB_USER'),
+                                host=os.environ.get('DB_HOST'), password=os.environ.get('DB_PASSWORD'))
     except:
-        print(os.environ.get('POSTGRES_HOST'))
+        print(os.environ.get('DB_HOST'))
 
     cur = conn.cursor()
     cur.execute("""select name, passengers, ST_AsText(the_geom) from airports""")
@@ -71,10 +71,10 @@ def getairports():
 @get('/db')
 def dbexample():
     try:
-        conn = psycopg2.connect(database=os.environ.get('POSTGRES_DB'), user=os.environ.get('POSTGRES_USER'),
-                            host=os.environ.get('POSTGRES_HOST'), password=os.environ.get('POSTGRES_PASSWORD'))
+        conn = psycopg2.connect(database=os.environ.get('DB_NAME'), user=os.environ.get('DB_USER'),
+                            host=os.environ.get('DB_HOST'), password=os.environ.get('DB_PASSWORD'))
     except:
-        print(os.environ.get('POSTGRES_HOST'))
+        print(os.environ.get('DB_HOST'))
 
     cur = conn.cursor()
     # cur.execute("""select parkid, name, ST_AsText(the_geom) from parkpoints limit 10""")
